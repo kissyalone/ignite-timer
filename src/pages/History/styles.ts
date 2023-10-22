@@ -16,6 +16,7 @@ export const HistoryList = styled.div`
   flex: 1;
   overflow: auto;
   margin-top: 2rem;
+
   table {
     width: 100%;
     border-collapse: collapse; //as bordas da div
@@ -57,5 +58,26 @@ export const HistoryList = styled.div`
     }
 
   }
+`
+const STATUS_COLORS = {
+  yellow: 'yellow-500',
+  green: 'green-500',
+  red: 'red-500',
+} as const // isso locka o objeto fazendo com que os valores nao sejam genericos
+interface StatusProps {
+  statusColor: keyof typeof STATUS_COLORS;
+}
 
+export const Status = styled.span<StatusProps>`
+  display: flex;
+  align-items:center;
+  gap:0.5rem; //o gap serve para separa o elemento criado abaixo
+
+  &::before { //cria um elemento antes do conteudo ou depois usando a tag after
+    content: ''; //sempre importante ter um content pois se nao o interpretador nao renderiza
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background: ${(props) => props.theme[STATUS_COLORS[props.statusColor]]};
+  }
 `
